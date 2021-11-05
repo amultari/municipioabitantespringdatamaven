@@ -27,7 +27,7 @@ public class Abitante {
 	@Column(name = "residenza")
 	private String residenza;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "municipio_id")
+	@JoinColumn(name = "municipio_id",nullable = false)
 	private Municipio municipio;
 
 	public Abitante() {

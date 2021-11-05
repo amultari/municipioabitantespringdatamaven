@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.StringMatcher;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.municipioabitantespringdatamaven.model.Municipio;
 import it.prova.municipioabitantespringdatamaven.repository.MunicipioRepository;
 
-@Component
+@Service
 public class MunicipioServiceImpl implements MunicipioService {
 
 	@Autowired
