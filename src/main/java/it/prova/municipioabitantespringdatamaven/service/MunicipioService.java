@@ -23,5 +23,7 @@ public interface MunicipioService {
 	public void removeConEccezione(Municipio municipioInstance);
 	
 	public List<Municipio> cercaTuttiIMunicipiConAbitantiConEtaMaggioreDi(int etaInput);
+	
+	public Municipio cercaPerCodice(String codice);
 
 }

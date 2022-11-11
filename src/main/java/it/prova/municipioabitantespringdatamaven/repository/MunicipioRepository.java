@@ -12,6 +12,8 @@ public interface MunicipioRepository extends CrudRepository<Municipio, Long>,Que
 
 	List<Municipio> findAllByDescrizioneContaining(String term);
 	
+	Municipio findByCodice(String codice);
+	
 	//c'è anche la possibilità di andare nelle 'nested' properties...MAGNIFICO
 	//lo faccio eager per provare
 	@EntityGraph(attributePaths = { "abitanti" })

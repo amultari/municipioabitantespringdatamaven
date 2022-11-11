@@ -161,4 +161,31 @@ public class BatteriaDiTestService {
 		System.out.println("testCercaTuttiIMunicipiConAbitantiConEtaMaggioreDi........OK");
 	}
 
+	public void testCercaIPrimiTreConEtaInferioreA() {
+		Long nowInMillisecondi = new Date().getTime();
+		int etaToCheck = 30;
+
+		// inserisco un municipio con 10 abitanti con eta inferiore a 30
+		Municipio nuovoMunicipio = new Municipio("Municipio" + nowInMillisecondi, nowInMillisecondi.toString(),
+				"Via dei " + nowInMillisecondi);
+		municipioService.inserisciNuovo(nuovoMunicipio);
+		IntStream.range(1, 11).forEach(i -> {
+			abitanteService.inserisciNuovo(
+					new Abitante("Matteo" + i, "Fiasconi" + i, etaToCheck - i, "Via " + i, nuovoMunicipio));
+		});
+
+		// se cerco by municipio devo ottenere esattamente 10 abitanti
+		List<Abitante> listaAbitantiByMunicipio = abitanteService.cercaPerMunicipio(nuovoMunicipio);
+		if (listaAbitantiByMunicipio.size() != 10)
+			throw new RuntimeException(
+					"testCercaIPrimiTreConEtaInferioreA...failed: gli abitanti non sono il numero previsto");
+
+		// se provo il metodo che cerca i primi tre deve estrane solo tre
+		if (abitanteService.cercaIPrimiTreAbitantiConEtaInferioreA(etaToCheck).size() != 3)
+			throw new RuntimeException(
+					"testCercaIPrimiTreConEtaInferioreA...failed: gli abitanti non sono il numero previsto");
+
+		System.out.println("testCercaIPrimiTreConEtaInferioreA........OK");
+	}
+
 }

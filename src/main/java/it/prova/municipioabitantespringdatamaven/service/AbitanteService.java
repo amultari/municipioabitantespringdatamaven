@@ -3,6 +3,7 @@ package it.prova.municipioabitantespringdatamaven.service;
 import java.util.List;
 
 import it.prova.municipioabitantespringdatamaven.model.Abitante;
+import it.prova.municipioabitantespringdatamaven.model.Municipio;
 
 public interface AbitanteService {
 	
@@ -31,6 +32,10 @@ public interface AbitanteService {
 	public List<Abitante> cercaPerNomeCheIniziaCon(String tokenIniziale);
 	
 	public List<Abitante> cercaPerCognomeEager(String cognomeInput);
+	
+	public List<Abitante> cercaPerMunicipio(Municipio municipioInput);
+	
+	public List<Abitante> cercaIPrimiTreAbitantiConEtaInferioreA(int etaInput);
 	
 	
 }

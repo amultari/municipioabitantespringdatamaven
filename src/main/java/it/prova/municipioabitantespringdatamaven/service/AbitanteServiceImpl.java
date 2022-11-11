@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.municipioabitantespringdatamaven.model.Abitante;
+import it.prova.municipioabitantespringdatamaven.model.Municipio;
 import it.prova.municipioabitantespringdatamaven.repository.AbitanteRepository;
 
 @Service
@@ -105,6 +106,16 @@ public class AbitanteServiceImpl implements AbitanteService {
 	@Override
 	public List<Abitante> cercaPerCognomeEager(String cognomeInput) {
 		return abitanteRepository.findByCognome(cognomeInput);
+	}
+
+	@Override
+	public List<Abitante> cercaIPrimiTreAbitantiConEtaInferioreA(int etaInput) {
+		return abitanteRepository.readTop3ByEtaLessThan(etaInput);
+	}
+
+	@Override
+	public List<Abitante> cercaPerMunicipio(Municipio municipioInput) {
+		return abitanteRepository.searchByMunicipio(municipioInput);
 	}
 
 }
