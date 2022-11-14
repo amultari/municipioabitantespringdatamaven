@@ -30,6 +30,7 @@ public class MunicipioabitantespringdatamavenApplication implements CommandLineR
 		batteriaDiTestService.testCercaAbitantiPerNomeCheIniziaCon();
 		batteriaDiTestService.testCercaTuttiIMunicipiConAbitantiConEtaMaggioreDi();
 		batteriaDiTestService.testCercaIPrimiTreConEtaInferioreA();
+		batteriaDiTestService.testMunicipioFindByCodice();
 
 		System.out.println("################ FINE   #################");
 	}

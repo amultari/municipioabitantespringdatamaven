@@ -188,4 +188,21 @@ public class BatteriaDiTestService {
 		System.out.println("testCercaIPrimiTreConEtaInferioreA........OK");
 	}
 
+	public void testMunicipioFindByCodice() {
+		Long nowInMillisecondi = new Date().getTime();
+		final String CODICE_FISSO = "cod" + nowInMillisecondi;
+
+		// inserisco il municipio
+		Municipio nuovoMunicipio = new Municipio("Municipio" + nowInMillisecondi, CODICE_FISSO,
+				"Via dei " + nowInMillisecondi);
+		municipioService.inserisciNuovo(nuovoMunicipio);
+
+		// ricarico
+		Municipio municipioConCodiceFisso = municipioService.cercaPerCodice(CODICE_FISSO);
+		if (municipioConCodiceFisso == null || !municipioConCodiceFisso.getId().equals(nuovoMunicipio.getId()))
+			throw new RuntimeException("testMunicipioFindByCodice...failed: municipio con codice atteso non caricato");
+
+		System.out.println("testMunicipioFindByCodice........OK");
+	}
+
 }
