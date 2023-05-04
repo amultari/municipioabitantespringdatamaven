@@ -69,7 +69,7 @@ public class MunicipioServiceImpl implements MunicipioService {
 		return municipioRepository.findAllDistinctByAbitanti_EtaGreaterThan(etaInput);
 	}
 
-	@Override
+	@Transactional(readOnly = true)
 	public Municipio cercaPerCodice(String codice) {
 		return municipioRepository.findByCodice(codice);
 	}

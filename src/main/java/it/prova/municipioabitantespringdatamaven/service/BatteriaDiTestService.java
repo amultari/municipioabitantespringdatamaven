@@ -123,7 +123,15 @@ public class BatteriaDiTestService {
 			throw new RuntimeException(
 					"testCercaAbitantiPerNomeCheIniziaCon...failed: non iniziano tutti con: " + nomeToken);
 
+		// provo anche l'altra versione, che usa il @Query
+		// ora cerco tutti quelli che iniziano per Abit e il risultato deve essere 4
+		if (!abitanteService.cercaPerNomeCheIniziaConFattoSenzaJpql(nomeToken).stream()
+				.allMatch(abitante -> abitante.getNome().startsWith(nomeToken)))
+			throw new RuntimeException(
+					"cercaPerNomeCheIniziaConFattoSenzaJpql...failed: non iniziano tutti con: " + nomeToken);
+
 		System.out.println("testCercaAbitantiPerNomeCheIniziaCon........OK");
+		System.out.println("cercaPerNomeCheIniziaConFattoSenzaJpql........OK");
 	}
 
 	public void testCercaTuttiIMunicipiConAbitantiConEtaMaggioreDi() {

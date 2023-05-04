@@ -24,7 +24,8 @@ public class AbitanteServiceImpl implements AbitanteService {
 	private AbitanteRepository abitanteRepository;
 
 	// questo mi serve per il findByExample2 che risulta 'a mano'
-	// o comunque in tutti quei casi in cui ho bisogno di costruire custom query nel service
+	// o comunque in tutti quei casi in cui ho bisogno di costruire custom query nel
+	// service
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -55,14 +56,15 @@ public class AbitanteServiceImpl implements AbitanteService {
 
 	@Transactional(readOnly = true)
 	public List<Abitante> findByExample(Abitante exampleInput) {
-		ExampleMatcher matcher = ExampleMatcher.matching()
-				.withStringMatcher(StringMatcher.CONTAINING); // Match string containing pattern
+		ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(StringMatcher.CONTAINING); // Match string
+																										// containing
+																										// pattern
 		// .withIgnoreCase();
 		return (List<Abitante>) abitanteRepository.findAll(Example.of(exampleInput, matcher));
 	}
 
-	//nel caso si volesse fare una query particolare nel service...
-	@Override
+	// nel caso si volesse fare una query particolare nel service...
+	@Transactional(readOnly = true)
 	public List<Abitante> findByExample2(Abitante example) {
 		String query = "select a from Abitante a where a.id = a.id ";
 
@@ -78,11 +80,12 @@ public class AbitanteServiceImpl implements AbitanteService {
 		return entityManager.createQuery(query, Abitante.class).getResultList();
 	}
 
-	@Override
+	@Transactional(readOnly = true)
 	public List<Abitante> findByNome(String nameInput) {
 		return abitanteRepository.findByNome(nameInput);
 	}
 
+	// SE NON USO @TRANSACTIONAL DIVENTA UN METODO COMUNQUE DI SOLA LETTURA
 	@Override
 	public List<Abitante> cercaAbitantiConEtaMaggioreDi(int etaInput) {
 		return abitanteRepository.findByEtaGreaterThan(etaInput);
@@ -96,6 +99,11 @@ public class AbitanteServiceImpl implements AbitanteService {
 	@Override
 	public List<Abitante> cercaPerNomeCheIniziaCon(String tokenIniziale) {
 		return abitanteRepository.findByNomeStartsWith(tokenIniziale);
+	}
+
+	@Override
+	public List<Abitante> cercaPerNomeCheIniziaConFattoSenzaJpql(String tokenIniziale) {
+		return abitanteRepository.findByNomeCheIniziaPer(tokenIniziale);
 	}
 
 	@Override

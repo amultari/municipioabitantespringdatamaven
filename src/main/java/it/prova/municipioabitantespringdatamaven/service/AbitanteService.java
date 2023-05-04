@@ -31,6 +31,8 @@ public interface AbitanteService {
 	
 	public List<Abitante> cercaPerNomeCheIniziaCon(String tokenIniziale);
 	
+	public List<Abitante> cercaPerNomeCheIniziaConFattoSenzaJpql(String tokenIniziale);
+	
 	public List<Abitante> cercaPerCognomeEager(String cognomeInput);
 	
 	public List<Abitante> cercaPerMunicipio(Municipio municipioInput);

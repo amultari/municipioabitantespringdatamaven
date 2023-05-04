@@ -32,7 +32,7 @@ public class MunicipioabitantespringdatamavenApplication implements CommandLineR
 		batteriaDiTestService.testCercaIPrimiTreConEtaInferioreA();
 		batteriaDiTestService.testMunicipioFindByCodice();
 
-		System.out.println("################ FINE   #################");
+		System.out.println("################ FINE - PASSED  #################");
 	}
 
 }
