@@ -1,6 +1,6 @@
 package it.prova.municipioabitantespringdatamaven.service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -21,7 +21,7 @@ public class BatteriaDiTestService {
 	private AbitanteService abitanteService;
 
 	public void testInserisciNuovoMunicipio() {
-		Long nowInMillisecondi = new Date().getTime();
+		Long nowInMillisecondi = LocalDate.now().toEpochDay();
 
 		Municipio nuovoMunicipioIII = new Municipio("Municipio" + nowInMillisecondi, nowInMillisecondi.toString(),
 				"Via dei " + nowInMillisecondi);
@@ -36,7 +36,7 @@ public class BatteriaDiTestService {
 	}
 
 	public void testRemoveConEccezioneVaInRollback() {
-		Long nowInMillisecondi = new Date().getTime();
+		Long nowInMillisecondi = LocalDate.now().toEpochDay();
 		// inserisco un paio di municipi
 		Municipio nuovoMunicipio = new Municipio("Municipio" + nowInMillisecondi, nowInMillisecondi.toString(),
 				"Via dei " + nowInMillisecondi);
@@ -66,7 +66,7 @@ public class BatteriaDiTestService {
 	}
 
 	public void testInserisciAbitante() {
-		Long nowInMillisecondi = new Date().getTime();
+		Long nowInMillisecondi = LocalDate.now().toEpochDay();
 		Municipio nuovoMunicipio = new Municipio("Municipio" + nowInMillisecondi, nowInMillisecondi.toString(),
 				"Via dei " + nowInMillisecondi);
 		municipioService.inserisciNuovo(nuovoMunicipio);
@@ -82,7 +82,7 @@ public class BatteriaDiTestService {
 	}
 
 	public void testCercaAbitantePerCognomeEager() {
-		Long nowInMillisecondi = new Date().getTime();
+		Long nowInMillisecondi = LocalDate.now().toEpochDay();
 		String cognomeToken = "Mariottoli";
 
 		Municipio nuovoMunicipio = new Municipio("Municipio" + nowInMillisecondi, nowInMillisecondi.toString(),
@@ -103,7 +103,7 @@ public class BatteriaDiTestService {
 	}
 
 	public void testCercaAbitantiPerNomeCheIniziaCon() {
-		Long nowInMillisecondi = new Date().getTime();
+		Long nowInMillisecondi = LocalDate.now().toEpochDay();
 		String nomeToken = "Abit";
 
 		Municipio nuovoMunicipio = new Municipio("Municipio" + nowInMillisecondi, nowInMillisecondi.toString(),
@@ -127,7 +127,7 @@ public class BatteriaDiTestService {
 	}
 
 	public void testCercaTuttiIMunicipiConAbitantiConEtaMaggioreDi() {
-		Long nowInMillisecondi = new Date().getTime();
+		Long nowInMillisecondi = LocalDate.now().toEpochDay();
 		// devo usare un'eta esagerata per non andare ad includere i dati degli altri
 		// test
 		int etaToCheck = 400;
@@ -162,7 +162,7 @@ public class BatteriaDiTestService {
 	}
 
 	public void testCercaIPrimiTreConEtaInferioreA() {
-		Long nowInMillisecondi = new Date().getTime();
+		Long nowInMillisecondi = LocalDate.now().toEpochDay();
 		int etaToCheck = 30;
 
 		// inserisco un municipio con 10 abitanti con eta inferiore a 30
@@ -189,7 +189,7 @@ public class BatteriaDiTestService {
 	}
 
 	public void testMunicipioFindByCodice() {
-		Long nowInMillisecondi = new Date().getTime();
+		Long nowInMillisecondi = LocalDate.now().toEpochDay();
 		final String CODICE_FISSO = "cod" + nowInMillisecondi;
 
 		// inserisco il municipio
