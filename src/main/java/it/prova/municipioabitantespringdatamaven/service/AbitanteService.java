@@ -15,7 +15,7 @@ public interface AbitanteService {
 
 	public void inserisciNuovo(Abitante abitanteInstance);
 
-	public void rimuovi(Abitante abitanteInstance);
+	public void rimuovi(Long idAbitante);
 
 	public List<Abitante> findByExample(Abitante example);
 	

@@ -1,9 +1,13 @@
 package it.prova.municipioabitantespringdatamaven.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +54,8 @@ public class AbitanteServiceImpl implements AbitanteService {
 	}
 
 	@Transactional
-	public void rimuovi(Abitante abitanteInstance) {
-		abitanteRepository.delete(abitanteInstance);
+	public void rimuovi(Long idAbitante) {
+		abitanteRepository.deleteById(idAbitante);
 	}
 
 	@Transactional(readOnly = true)
@@ -66,18 +70,39 @@ public class AbitanteServiceImpl implements AbitanteService {
 	// nel caso si volesse fare una query particolare nel service...
 	@Transactional(readOnly = true)
 	public List<Abitante> findByExample2(Abitante example) {
-		String query = "select a from Abitante a where a.id = a.id ";
 
-		if (StringUtils.isNotEmpty(example.getNome()))
-			query += " and a.nome like '%" + example.getNome() + "%' ";
-		if (StringUtils.isNotEmpty(example.getCognome()))
-			query += " and a.cognome like '%" + example.getCognome() + "%' ";
-		if (example.getEta() != null && example.getEta() > 0)
-			query += " and a.eta = " + example.getEta();
-		if (StringUtils.isNotEmpty(example.getResidenza()))
-			query += " and a.residenza like '%" + example.getResidenza() + "%' ";
+		Map<String, Object> paramaterMap = new HashMap<String, Object>();
+		List<String> whereClauses = new ArrayList<String>();
 
-		return entityManager.createQuery(query, Abitante.class).getResultList();
+		StringBuilder queryBuilder = new StringBuilder("select a from Abitante a where a.id = a.id ");
+
+		if (StringUtils.isNotEmpty(example.getNome())) {
+			whereClauses.add(" a.nome  like :nome ");
+			paramaterMap.put("nome", "%" + example.getNome() + "%");
+		}
+		if (StringUtils.isNotEmpty(example.getCognome())) {
+			whereClauses.add(" a.cognome like :cognome ");
+			paramaterMap.put("cognome", "%" + example.getCognome() + "%");
+		}
+		if (StringUtils.isNotEmpty(example.getResidenza())) {
+			whereClauses.add(" a.residenza like :residenza ");
+			paramaterMap.put("residenza", "%" + example.getResidenza() + "%");
+		}
+		if (example.getEta() != null && example.getEta() > 0) {
+			whereClauses.add(" a.eta >= :eta ");
+			paramaterMap.put("eta", example.getEta());
+		}
+
+		queryBuilder.append(!whereClauses.isEmpty() ? " and " : "");
+		queryBuilder.append(StringUtils.join(whereClauses, " and "));
+		TypedQuery<Abitante> typedQuery = entityManager.createQuery(queryBuilder.toString(), Abitante.class);
+
+		for (String key : paramaterMap.keySet()) {
+			typedQuery.setParameter(key, paramaterMap.get(key));
+		}
+
+		return typedQuery.getResultList();
+
 	}
 
 	@Transactional(readOnly = true)

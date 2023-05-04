@@ -14,7 +14,7 @@ public interface MunicipioService {
 
 	public void inserisciNuovo(Municipio municipioInstance);
 
-	public void rimuovi(Municipio municipioInstance);
+	public void rimuovi(Long idMunicipio);
 
 	public List<Municipio> findByExample(Municipio example);
 	

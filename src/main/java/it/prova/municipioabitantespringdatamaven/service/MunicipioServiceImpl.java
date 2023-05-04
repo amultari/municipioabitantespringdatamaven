@@ -39,8 +39,8 @@ public class MunicipioServiceImpl implements MunicipioService {
 	}
 
 	@Transactional
-	public void rimuovi(Municipio municipioInstance) {
-		municipioRepository.delete(municipioInstance);
+	public void rimuovi(Long idMunicipio) {
+		municipioRepository.deleteById(idMunicipio);
 	}
 
 	@Transactional(readOnly = true)
