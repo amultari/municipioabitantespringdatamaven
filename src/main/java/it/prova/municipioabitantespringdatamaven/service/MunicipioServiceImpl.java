@@ -13,17 +13,16 @@ import it.prova.municipioabitantespringdatamaven.model.Municipio;
 import it.prova.municipioabitantespringdatamaven.repository.MunicipioRepository;
 
 @Service
+@Transactional(readOnly = true)
 public class MunicipioServiceImpl implements MunicipioService {
 
 	@Autowired
 	private MunicipioRepository municipioRepository;
 
-	@Transactional(readOnly = true)
 	public List<Municipio> listAllMunicipi() {
 		return (List<Municipio>) municipioRepository.findAll();
 	}
 
-	@Transactional(readOnly = true)
 	public Municipio caricaSingoloMunicipio(Long id) {
 		return municipioRepository.findById(id).orElse(null);
 	}
@@ -43,7 +42,6 @@ public class MunicipioServiceImpl implements MunicipioService {
 		municipioRepository.deleteById(idMunicipio);
 	}
 
-	@Transactional(readOnly = true)
 	public List<Municipio> findByExample(Municipio municipioExample) {
 		ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(StringMatcher.CONTAINING); // Match string
 																										// containing
@@ -52,7 +50,6 @@ public class MunicipioServiceImpl implements MunicipioService {
 		return (List<Municipio>) municipioRepository.findAll(Example.of(municipioExample, matcher));
 	}
 
-	@Transactional(readOnly = true)
 	public List<Municipio> cercaByDescrizioneILike(String term) {
 		return municipioRepository.findAllByDescrizioneContaining(term);
 	}
@@ -64,12 +61,10 @@ public class MunicipioServiceImpl implements MunicipioService {
 
 	}
 
-	@Transactional(readOnly = true)
 	public List<Municipio> cercaTuttiIMunicipiConAbitantiConEtaMaggioreDi(int etaInput) {
 		return municipioRepository.findAllDistinctByAbitanti_EtaGreaterThan(etaInput);
 	}
 
-	@Transactional(readOnly = true)
 	public Municipio cercaPerCodice(String codice) {
 		return municipioRepository.findByCodice(codice);
 	}
