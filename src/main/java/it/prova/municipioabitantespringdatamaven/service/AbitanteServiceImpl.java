@@ -22,6 +22,7 @@ import it.prova.municipioabitantespringdatamaven.model.Municipio;
 import it.prova.municipioabitantespringdatamaven.repository.AbitanteRepository;
 
 @Service
+@Transactional(readOnly = true)
 public class AbitanteServiceImpl implements AbitanteService {
 
 	@Autowired
@@ -33,12 +34,10 @@ public class AbitanteServiceImpl implements AbitanteService {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	@Transactional(readOnly = true)
 	public List<Abitante> listAllAbitanti() {
 		return (List<Abitante>) abitanteRepository.findAll();
 	}
 
-	@Transactional(readOnly = true)
 	public Abitante caricaSingoloAbitante(Long id) {
 		return abitanteRepository.findById(id).orElse(null);
 	}
@@ -58,7 +57,6 @@ public class AbitanteServiceImpl implements AbitanteService {
 		abitanteRepository.deleteById(idAbitante);
 	}
 
-	@Transactional(readOnly = true)
 	public List<Abitante> findByExample(Abitante exampleInput) {
 		ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(StringMatcher.CONTAINING); // Match string
 																										// containing
@@ -68,7 +66,6 @@ public class AbitanteServiceImpl implements AbitanteService {
 	}
 
 	// nel caso si volesse fare una query particolare nel service...
-	@Transactional(readOnly = true)
 	public List<Abitante> findByExample2(Abitante example) {
 
 		Map<String, Object> paramaterMap = new HashMap<String, Object>();
@@ -105,12 +102,10 @@ public class AbitanteServiceImpl implements AbitanteService {
 
 	}
 
-	@Transactional(readOnly = true)
 	public List<Abitante> findByNome(String nameInput) {
 		return abitanteRepository.findByNome(nameInput);
 	}
 
-	// SE NON USO @TRANSACTIONAL DIVENTA UN METODO COMUNQUE DI SOLA LETTURA
 	@Override
 	public List<Abitante> cercaAbitantiConEtaMaggioreDi(int etaInput) {
 		return abitanteRepository.findByEtaGreaterThan(etaInput);
